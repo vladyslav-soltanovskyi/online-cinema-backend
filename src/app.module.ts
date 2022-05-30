@@ -1,17 +1,19 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypegooseModule } from 'nestjs-typegoose';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { getMongoDbConfig } from './config/mongo.config';
-import { UserModule } from './user/user.module';
-import { GenreModule } from './genre/genre.module';
-import { FileModule } from './file/file.module';
-import { MovieModule } from './movie/movie.module';
-import { ActorModule } from './actor/actor.module';
-import { ActorService } from './actor/actor.service';
-import { ActorController } from './actor/actor.controller';
+import { Module } from '@nestjs/common'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
+import { MovieModule } from './movie/movie.module'
+import { GenreModule } from './genre/genre.module'
+import { ActorModule } from './actor/actor.module'
+import { AuthModule } from './auth/auth.module'
+import { getMongoDbConfig } from './config/mongo.config'
+import { FilesModule } from './files/files.module'
+import { TelegramModule } from './telegram/telegram.module'
+import { UserModule } from './user/user.module'
+
+import { TypegooseModule } from 'nestjs-typegoose'
+import { RatingModule } from './rating/rating.module'
 
 @Module({
   imports: [
@@ -21,14 +23,16 @@ import { ActorController } from './actor/actor.controller';
       inject: [ConfigService],
       useFactory: getMongoDbConfig,
     }),
-    AuthModule,
-    UserModule,
-    GenreModule,
-    FileModule,
-    ActorModule,
-    MovieModule
+    MovieModule,
+		GenreModule,
+		ActorModule,
+		UserModule,
+		AuthModule,
+		FilesModule,
+		TelegramModule,
+		RatingModule,
   ],
-  controllers: [AppController, ActorController],
-  providers: [AppService, ActorService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
