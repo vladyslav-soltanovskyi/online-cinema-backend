@@ -16,7 +16,7 @@ export class GenreService {
     async bySlug(slug: string) {
         const doc = await this.genreModel.findOne({ slug }).exec();
         if(!doc) {
-            throw new NotFoundException("Genre not found");
+            throw new NotFoundException("Genres not found");
         }
         return doc;
     }
@@ -48,12 +48,12 @@ export class GenreService {
     async getCollections() {
         const genres = await this.getAll();
         const collections = await Promise.all(
-            genres.map(async genre => {
+            genres.map(async (genre) => {
                 const moviesByGenre = await this.movieService.byGenres([genre._id]);
 
                 const result: ICollection = {
                     _id: String(genre._id),
-                    image: moviesByGenre[0].bigPoster,
+                    image: moviesByGenre[0]?.bigPoster,
                     slug: genre.slug,
                     title: genre.name
                 };

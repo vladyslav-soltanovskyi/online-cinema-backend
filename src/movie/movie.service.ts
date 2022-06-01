@@ -52,7 +52,7 @@ export class MovieService {
     }
 
     async byGenres(genreIds: Types.ObjectId[]) {
-        const docs = await this.movieModel.findOne({ genres: { $in: genreIds } }).exec();
+        const docs = await this.movieModel.find({ genres: { $in: genreIds } }).exec();
         if(!docs) {
             throw new NotFoundException("Movies not found");
         }
