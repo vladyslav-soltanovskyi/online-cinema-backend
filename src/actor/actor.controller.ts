@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { IdValidationPipe } from 'src/pipes/id.validation.pipe';
 import { ActorService } from './actor.service';
 import { ActorDto } from './dto/actor.dto';
 
-@Controller('actor')
+@Controller('actors')
 export class ActorController {
     constructor(
         private readonly actorService: ActorService
@@ -17,7 +17,7 @@ export class ActorController {
 
     @Get()
     async getAll(@Query("searchTerm") searchTerm?: string) {
-        return this.actorService.byId(searchTerm);
+        return this.actorService.getAll(searchTerm);
     }
 
     @Get(':id')
@@ -27,7 +27,7 @@ export class ActorController {
     }
 
     @UsePipes(new ValidationPipe())
-    @Put()
+    @Post()
     @HttpCode(200)
     @Auth('admin')
     async create() {

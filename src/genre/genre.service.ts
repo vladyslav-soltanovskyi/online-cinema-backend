@@ -28,10 +28,10 @@ export class GenreService {
             options = {
                 $or: [
                     {
-                        email: new RegExp(searchTerm, 'i')
+                        name: new RegExp(searchTerm, 'i')
                     },
                     {
-                        glug: new RegExp(searchTerm, 'i')
+                        slug: new RegExp(searchTerm, 'i')
                     },
                     {
                         description: new RegExp(searchTerm, 'i')

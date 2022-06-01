@@ -28,7 +28,7 @@ export class ActorService {
                         email: new RegExp(searchTerm, 'i')
                     },
                     {
-                        glug: new RegExp(searchTerm, 'i')
+                        slug: new RegExp(searchTerm, 'i')
                     }
                 ]
             }

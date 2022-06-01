@@ -5,7 +5,7 @@ import { IdValidationPipe } from 'src/pipes/id.validation.pipe';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { MovieService } from './movie.service';
 
-@Controller('movie')
+@Controller('movies')
 export class MovieController {
     constructor(
         private readonly movieService: MovieService
@@ -30,7 +30,7 @@ export class MovieController {
 
     @Get()
     async getAll(@Query("searchTerm") searchTerm?: string) {
-        return this.movieService.byId(searchTerm);
+        return this.movieService.getAll(searchTerm);
     }
 
     @Get("most-popular")
@@ -51,7 +51,7 @@ export class MovieController {
     }
 
     @UsePipes(new ValidationPipe())
-    @Put()
+    @Post()
     @HttpCode(200)
     @Auth('admin')
     async create() {

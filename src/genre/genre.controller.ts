@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { IdValidationPipe } from 'src/pipes/id.validation.pipe';
 import { CreateGenreDto } from './dto/create-genre.dto';
 import { GenreService } from './genre.service';
 
-@Controller('genre')
+@Controller('genres')
 export class GenreController {
     constructor(
         private readonly genreService: GenreService
@@ -23,7 +23,7 @@ export class GenreController {
 
     @Get()
     async getAll(@Query("searchTerm") searchTerm?: string) {
-        return this.genreService.byId(searchTerm);
+        return this.genreService.getAll(searchTerm);
     }
 
     @Get(':id')
@@ -33,7 +33,7 @@ export class GenreController {
     }
 
     @UsePipes(new ValidationPipe())
-    @Put()
+    @Post()
     @HttpCode(200)
     @Auth('admin')
     async create() {
