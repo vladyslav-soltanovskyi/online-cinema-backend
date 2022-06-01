@@ -52,7 +52,7 @@ export class MovieService {
     }
 
     async byGenres(genreIds: Types.ObjectId[]) {
-        const docs = await this.movieModel.findOne({ genres: { $in: genreIds } }).exec();
+        const docs = await this.movieModel.find({ genres: { $in: genreIds } }).exec();
         if(!docs) {
             throw new NotFoundException("Movies not found");
         }
@@ -103,7 +103,7 @@ export class MovieService {
     }
 
     async create() {
-        const defalutValue: CreateMovieDto = {
+        const defaultValue: CreateMovieDto = {
             bigPoster: '',
             poster: '',
             description: '',
@@ -113,7 +113,7 @@ export class MovieService {
             genres: [],
             actors: []
         }
-        const actor = await this.movieModel.create(defalutValue);
+        const actor = await this.movieModel.create(defaultValue);
         return actor._id;
     }
 
